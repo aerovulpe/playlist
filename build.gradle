@@ -1,0 +1,42 @@
+description = """Creates M3U files."""
+version = "v1.0.0"
+
+apply plugin: "kotlin"
+apply plugin: "application"
+
+repositories {
+    jcenter()
+}
+
+buildscript {
+    ext {
+        kotlinVersion = "1.4.10"
+    }
+
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+    }
+}
+
+ext {
+    kotlinVersion = "1.4.10"
+}
+
+repositories {
+    jcenter()
+}
+
+compileKotlin.kotlinOptions.jvmTarget = "1.8"
+compileTestKotlin.kotlinOptions.jvmTarget = "1.8"
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
+}
+
+application {
+    mainClassName = 'me.aerovulpe.PlaylistKt'
+}
