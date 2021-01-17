@@ -1,6 +1,6 @@
 package me.aerovulpe
 
-import java.io.RandomAccessFile
+import java.io.File
 import java.nio.file.Files
 import java.nio.file.Paths
 
@@ -24,11 +24,9 @@ fun main(vararg args: String) {
     else
       args.slice(rootsStartIndex until args.size)
 
-  val separator = System.getProperty("line.separator")
-
-  RandomAccessFile("./$name.m3u", "rw")
-    .use { file ->
-      file.writeBytes(config + separator)
+  File("./$name.m3u").bufferedWriter()
+    .use { writer ->
+      writer.appendLine(config)
 
       roots.forEach { root ->
         Files.walk(Paths.get(root))
@@ -37,7 +35,7 @@ fun main(vararg args: String) {
               ?.startsWith("video")
               ?: false
           }.forEach {
-            file.writeBytes("${it.toAbsolutePath()}$separator")
+            writer.appendLine("${it.toAbsolutePath()}")
           }
       }
     }
